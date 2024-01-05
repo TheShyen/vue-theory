@@ -5,12 +5,12 @@ const props = defineProps(['number','modelValue'])
 defineEmits(['update:modelValue'])
 
 const msg = ref('')
-console.log(props.number,'created')
+console.log(props.number,'created(key)')
 onMounted(()=>{
-  console.log(props.number,'Инпут зарендерился')
+  console.log(props.number,'Инпут(key) зарендерился')
 })
-onUpdated(()=> console.log(props.number,'Update'))
-onUnmounted(()=>console.log(props.number,'Размонтирвание инпута'))
+onUpdated(()=> console.log(props.number,'Update(key)'))
+onUnmounted(()=>console.log(props.number,'Размонтирвание инпута(key)'))
 </script>
 
 <template>
