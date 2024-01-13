@@ -4,6 +4,7 @@ import Input from "./components/Input.vue";
 import Wrapper from "./components/Wrapper.vue";
 import WrapperWithKey from "./components/WrapperWithKey.vue";
 import Item from "./components/Item.vue";
+import ParrentForSlot from "./components/ParrentForSlot.vue";
 const posts = ref([])
 const posts1 = ref([])
 onMounted(() => {
@@ -24,38 +25,39 @@ function createObj() {
   console.log(obj)
   delete obj.click
 }
-
+const key1 = ref('123')
 function handleDeleteItem(id) {
  posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
 }
 </script>
 
 <template>
-  <h1>{{ title }}</h1>
-  <input
-    type="text"
-    v-model="title"
-  />
-  <button v-on="obj">fff</button>
-  
-  <h1>Инпуты с v-if без key</h1>
-  <Wrapper/>
-  
-  <h1>Инпуты с v-if c key</h1>
-  <WrapperWithKey/>
-  
-  <button @click="activeList = !activeList" style="margin-top: 25px">Переключить листы</button>
-  <div v-if="activeList">
-    <h1>V-FOR</h1>
-    <div>
-      <Item v-for="post in posts" :post="post" @delete-item="handleDeleteItem"/>
-    </div>
-  </div>
-  
-  <div v-else>
-    <h1>V-FOR with KEY</h1>
-    <div>
-      <Item v-for="post in posts" :post="post" :key="post.id" @delete-item="handleDeleteItem"/>
-    </div>
-  </div>
+  <ParrentForSlot :key="key1" @update-key="key1 = key1 + 1"></ParrentForSlot>
+<!--  <h1>{{ title }}</h1>-->
+<!--  <input-->
+<!--    type="text"-->
+<!--    v-model="title"-->
+<!--  />-->
+<!--  <button v-on="obj">fff</button>-->
+<!--  -->
+<!--  <h1>Инпуты с v-if без key</h1>-->
+<!--  <Wrapper/>-->
+<!--  -->
+<!--  <h1>Инпуты с v-if c key</h1>-->
+<!--  <WrapperWithKey/>-->
+<!--  -->
+<!--  <button @click="activeList = !activeList" style="margin-top: 25px">Переключить листы</button>-->
+<!--  <div v-if="activeList">-->
+<!--    <h1>V-FOR</h1>-->
+<!--    <div>-->
+<!--      <Item v-for="post in posts" :post="post" @delete-item="handleDeleteItem"/>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  -->
+<!--  <div v-else>-->
+<!--    <h1>V-FOR with KEY</h1>-->
+<!--    <div>-->
+<!--      <Item v-for="post in posts" :post="post" :key="post.id" @delete-item="handleDeleteItem"/>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
