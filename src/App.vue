@@ -7,6 +7,7 @@ import Item from "./components/Item.vue";
 import ParrentForSlot from "./components/ParrentForSlot.vue";
 import TestList from "./components/TestList.vue";
 import ProvideTest from "./components/ProvideTest.vue";
+import {useMouse} from "./composables/useMouse.js";
 const posts = ref([])
 const posts1 = ref([])
 onMounted(() => {
@@ -31,6 +32,8 @@ const key1 = ref('123')
 function handleDeleteItem(id) {
  posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
 }
+
+const { x, y } = useMouse()
 </script>
 
 <template>
@@ -48,8 +51,8 @@ function handleDeleteItem(id) {
   <h1>Provide/inject</h1>
   <ProvideTest/>
   
-  <h1>Асинхронные компоненты</h1>
-  
+  <h1>Composables</h1>
+  <div>Mouse position is at: {{ x }}, {{ y }}</div>
 <!--  <h1>{{ title }}</h1>-->
 <!--  <input-->
 <!--    type="text"-->
