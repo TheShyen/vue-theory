@@ -5,6 +5,8 @@ import Wrapper from "./components/Wrapper.vue";
 import WrapperWithKey from "./components/WrapperWithKey.vue";
 import Item from "./components/Item.vue";
 import ParrentForSlot from "./components/ParrentForSlot.vue";
+import TestList from "./components/TestList.vue";
+import ProvideTest from "./components/ProvideTest.vue";
 const posts = ref([])
 const posts1 = ref([])
 onMounted(() => {
@@ -33,6 +35,21 @@ function handleDeleteItem(id) {
 
 <template>
   <ParrentForSlot :key="key1" @update-key="key1 = key1 + 1"></ParrentForSlot>
+  
+  <TestList testProp1="aaaaaaaa" :test-prop2="10">
+    <template #item="item">
+      <div class="item">
+        <p>{{ item.body }}</p>
+        <p>{{ item.username }} | {{ item.age }} years</p>
+      </div>
+    </template>
+  </TestList>
+  
+  <h1>Provide/inject</h1>
+  <ProvideTest/>
+  
+  <h1>Асинхронные компоненты</h1>
+  
 <!--  <h1>{{ title }}</h1>-->
 <!--  <input-->
 <!--    type="text"-->

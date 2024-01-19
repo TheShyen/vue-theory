@@ -15,7 +15,7 @@ import {onMounted, onUnmounted, onUpdated, ref} from 'vue';
 import ChildComponentSlot from "./ChildComponentSlot.vue";
 
 const title = ref('Родительский компонент');
-const slotValue = ref('Исходное значение слота');
+const slotValue = ref('aboba');
 defineEmits(['updateKey'])
 
 onMounted(()=> console.log('Родитель Mounted'))
