@@ -1,7 +1,11 @@
 <script setup>
-import { inject } from 'vue'
+import {inject, onMounted} from 'vue'
 
 const message = inject('message')
+
+onMounted(() => {
+  console.log(message)
+})
 </script>
 
 <template>

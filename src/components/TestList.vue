@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import {onUpdated, ref} from 'vue'
 
 const props = defineProps(['testProp1', 'testProp2'])
 
@@ -7,13 +7,16 @@ const items = ref([
   { body: 'ABOBA', username: 'TheShy', age: 20 },
   { body: 'Vue top', username: 'Kostya', age: 18 }
 ])
-
+const message = ref('Theshy')
+onUpdated(()=> console.log('TestList Updated'))
 </script>
 
 <template>
+  <p>{{ message }}</p>
+  <button @click="message = message + 'обновлено'">Обновить сообщение</button>
   <ul>
     <li v-for="item in items">
-      <div>{{testProp1}}{{testProp2}}</div>
+      <div>{{testProp1}} ||| {{testProp2}}</div>
       <slot name="item" v-bind="item"/>
     </li>
   </ul>

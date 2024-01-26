@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive, ref, watch} from 'vue'
+import {onMounted, onUpdated, reactive, ref, watch} from 'vue'
 import Input from "./components/Input.vue";
 import Wrapper from "./components/Wrapper.vue";
 import WrapperWithKey from "./components/WrapperWithKey.vue";
@@ -8,6 +8,9 @@ import ParrentForSlot from "./components/ParrentForSlot.vue";
 import TestList from "./components/TestList.vue";
 import ProvideTest from "./components/ProvideTest.vue";
 import {useMouse} from "./composables/useMouse.js";
+import MyDropdown from "./components/my-dropdown/myDropdown.vue";
+import DdMenuItem from "./components/my-dropdown/DdMenuItem.vue";
+import ChildComponentSlot from "./components/ChildComponentSlot.vue";
 const posts = ref([])
 const posts1 = ref([])
 onMounted(() => {
@@ -32,18 +35,33 @@ const key1 = ref('123')
 function handleDeleteItem(id) {
  posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
 }
+const compModif = ref(10)
+const { x, y } = useMouse(compModif.value)
 
-const { x, y } = useMouse()
+watch(compModif, () => {
+  console.log(compModif.value)
+})
 </script>
 
 <template>
-  <ParrentForSlot :key="key1" @update-key="key1 = key1 + 1"></ParrentForSlot>
+  <my-dropdown>
+    <dd-menu-item>Первый</dd-menu-item>
+    <dd-menu-item>2</dd-menu-item>
+    <dd-menu-item>3</dd-menu-item>
+  </my-dropdown>
+  
   
   <TestList testProp1="aaaaaaaa" :test-prop2="10">
+    
     <template #item="item">
+      <input
+        type="text"
+        v-model="title"
+      />
       <div class="item">
         <p>{{ item.body }}</p>
         <p>{{ item.username }} | {{ item.age }} years</p>
+        <child-component-slot/>
       </div>
     </template>
   </TestList>
@@ -51,14 +69,10 @@ const { x, y } = useMouse()
   <h1>Provide/inject</h1>
   <ProvideTest/>
   
-  <h1>Composables</h1>
+  <h1 v-color="'#b9de34'" :key="'Aboba'">Composables</h1>
   <div>Mouse position is at: {{ x }}, {{ y }}</div>
-<!--  <h1>{{ title }}</h1>-->
-<!--  <input-->
-<!--    type="text"-->
-<!--    v-model="title"-->
-<!--  />-->
-<!--  <button v-on="obj">fff</button>-->
+  <button @click="compModif = compModif + 1">Плюс</button>
+  <button @click="compModif = compModif - 1">Минус</button>
 <!--  -->
 <!--  <h1>Инпуты с v-if без key</h1>-->
 <!--  <Wrapper/>-->
