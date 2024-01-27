@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@alt-point/active-models": "^3.0.10",
     "vue": "^3.3.11"
   },
   "devDependencies": {
