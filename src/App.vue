@@ -13,66 +13,65 @@ import DdMenuItem from "./components/my-dropdown/DdMenuItem.vue";
 import ChildComponentSlot from "./components/ChildComponentSlot.vue";
 const posts = ref([])
 const posts1 = ref([])
-onMounted(() => {
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
-    .then((json) => posts.value = json)
-    
-})
-
-
-const title = ref('v-model argument example')
-const obj = reactive({click: createObj})
-const activeList = ref(true)
-watch(() => obj.click, () => {
-  console.log('watcher')
-}, {immediate: true})
-function createObj() {
-  console.log(obj)
-  delete obj.click
-}
-const key1 = ref('123')
-function handleDeleteItem(id) {
- posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
-}
-const compModif = ref(10)
-const { x, y } = useMouse(compModif.value)
-
-watch(compModif, () => {
-  console.log(compModif.value)
-})
+// onMounted(() => {
+//   fetch('https://jsonplaceholder.typicode.com/users')
+//     .then((response) => response.json())
+//     .then((json) => posts.value = json)
+//
+// })
+//
+//
+// const title = ref('v-model argument example')
+// const obj = reactive({click: createObj})
+// const activeList = ref(true)
+// watch(() => obj.click, () => {
+//   console.log('watcher')
+// }, {immediate: true})
+// function createObj() {
+//   console.log(obj)
+//   delete obj.click
+// }
+// const key1 = ref('123')
+// function handleDeleteItem(id) {
+//  posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
+// }
+// const compModif = ref(10)
+// const { x, y } = useMouse(compModif.value)
+//
+// watch(compModif, () => {
+//   console.log(compModif.value)
+// })
+const options = ['aboba', 'lox', 'ttheshy']
 </script>
 
 <template>
-  <my-dropdown>
-    <dd-menu-item>Первый</dd-menu-item>
-    <dd-menu-item>2</dd-menu-item>
-    <dd-menu-item>3</dd-menu-item>
+  <my-dropdown :options="options">
+    <button>Меню</button>
   </my-dropdown>
   
   
-  <TestList testProp1="aaaaaaaa" :test-prop2="10">
-    
-    <template #item="item">
-      <input
-        type="text"
-        v-model="title"
-      />
-      <div class="item">
-        <p>{{ item.body }}</p>
-        <p>{{ item.username }} | {{ item.age }} years</p>
-        <child-component-slot/>
-      </div>
-    </template>
-  </TestList>
-  
-  <h1>Provide/inject</h1>
-  <ProvideTest/>
-  
-  <h1 v-color="'#b9de34'" :key="'Aboba'">Composables</h1>
-  <div>Mouse position is at: {{ x }}, {{ y }}</div>
-  <button @click="compModif = compModif + 1">Плюс</button>
-  <button @click="compModif = compModif - 1">Минус</button>
+<!--  <TestList testProp1="aaaaaaaa" :test-prop2="10">-->
+<!--    -->
+<!--    <template #item="item">-->
+<!--      <input-->
+<!--        type="text"-->
+<!--        v-model="title"-->
+<!--      />-->
+<!--      <div class="item">-->
+<!--        <p>{{ item.body }}</p>-->
+<!--        <p>{{ item.username }} | {{ item.age }} years</p>-->
+<!--        <child-component-slot/>-->
+<!--      </div>-->
+<!--    </template>-->
+<!--  </TestList>-->
+<!--  -->
+<!--  <h1>Provide/inject</h1>-->
+<!--  <ProvideTest/>-->
+<!--  -->
+<!--  <h1 v-color="'#b9de34'" :key="'Aboba'">Composables</h1>-->
+<!--  <div>Mouse position is at: {{ x }}, {{ y }}</div>-->
+<!--  <button @click="compModif = compModif + 1">Плюс</button>-->
+<!--  <button @click="compModif = compModif - 1">Минус</button>-->
 <!--  -->
 <!--  <h1>Инпуты с v-if без key</h1>-->
 <!--  <Wrapper/>-->

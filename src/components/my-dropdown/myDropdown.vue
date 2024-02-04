@@ -1,11 +1,15 @@
 <template>
-  <div class="dropdown">
-    <button @click="toggleDropdown" :ref="(el) => { dropdownMen = el }" class="dropdown-toggle">
-      {{ isOpen ? 'Закрыть' : 'Открыть' }} меню
-    </button>
+  <div class="dropdown" :ref="(el) => { dropdownElem = el }">
+    <div @click="toggleDropdown">
+      <slot></slot>
+    </div>
     <transition name="fade">
       <ul v-if="isOpen" class="dropdown-menu">
-        <slot></slot>
+        <li v-for="option in options">
+          <a href="#">
+            {{option}}
+          </a>
+        </li>
       </ul>
     </transition>
   </div>
@@ -13,9 +17,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-
+defineProps(['options'])
 const isOpen = ref(false);
-const dropdownMen = ref(null)
+const dropdownElem = ref(null)
 
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
@@ -26,8 +30,8 @@ const closeDropdown = () => {
 };
 
 const handleClickOutside = (event) => {
-  if(event.target !== dropdownMen.value) {
-    closeDropdown()
+  if (dropdownElem.value && !dropdownElem.value.contains(event.target)) {
+    closeDropdown();
   }
 };
 
@@ -46,13 +50,7 @@ onUnmounted(() => {
   display: inline-block;
 }
 
-.dropdown-toggle {
-  padding: 10px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
+
 
 .dropdown-menu {
   position: absolute;
@@ -65,7 +63,19 @@ onUnmounted(() => {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 100%;
 }
-
+li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  &:hover {
+    background: #cdd2d9;
+    transition: 0.5s all;
+  }
+}
+a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
