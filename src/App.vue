@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, onUpdated, reactive, ref, watch} from 'vue'
+import {onMounted, onUpdated, provide, reactive, ref, watch} from 'vue'
 import Input from "./components/Input.vue";
 import Wrapper from "./components/Wrapper.vue";
 import WrapperWithKey from "./components/WrapperWithKey.vue";
@@ -11,14 +11,17 @@ import {useMouse} from "./composables/useMouse.js";
 import MyDropdown from "./components/my-dropdown/myDropdown.vue";
 import DdMenuItem from "./components/my-dropdown/DdMenuItem.vue";
 import ChildComponentSlot from "./components/ChildComponentSlot.vue";
+import AnimationTest from "./components/AnimationTest.vue";
+import AnimationComp from "./components/AnimationComp.vue";
 const posts = ref([])
-const posts1 = ref([])
-// onMounted(() => {
-//   fetch('https://jsonplaceholder.typicode.com/users')
-//     .then((response) => response.json())
-//     .then((json) => posts.value = json)
-//
-// })
+onMounted(() => {
+  fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then((json) => posts.value = json)
+
+})
+const message = ref('hello')
+provide('message', message)
 //
 //
 // const title = ref('v-model argument example')
@@ -32,9 +35,9 @@ const posts1 = ref([])
 //   delete obj.click
 // }
 // const key1 = ref('123')
-// function handleDeleteItem(id) {
-//  posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
-// }
+function handleDeleteItem(id) {
+ posts.value.splice(posts.value.findIndex(item => item.id === id), 1)
+}
 // const compModif = ref(10)
 // const { x, y } = useMouse(compModif.value)
 //
@@ -45,11 +48,25 @@ const options = ['aboba', 'lox', 'ttheshy']
 </script>
 
 <template>
-  <my-dropdown :options="options">
-    <button>Меню</button>
-  </my-dropdown>
+  <AnimationTest/>
+
+  <AnimationComp/>
+
+
+  <h1>V-FOR</h1>
+  <div>
+    <TransitionGroup name="list">
+      <Item v-for="post in posts" :post="post" :key="post.id" @delete-item="handleDeleteItem"/>
+    </TransitionGroup>
+  </div>
+
   
-  
+
+
+
+
+
+
 <!--  <TestList testProp1="aaaaaaaa" :test-prop2="10">-->
 <!--    -->
 <!--    <template #item="item">-->
@@ -94,3 +111,12 @@ const options = ['aboba', 'lox', 'ttheshy']
 <!--    </div>-->
 <!--  </div>-->
 </template>
+<style>
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>
